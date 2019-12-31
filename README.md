@@ -13,27 +13,30 @@ INT-label is decoupled from the topology, allowing seamless adaptation to link f
 # Experiment result
 Experiment result contains preliminary experimental results data and figures.
 
+## Fig.1
+Upload rates under different probe intervals (INT-path vs. HULA).
+
 ## Fig.2
-The impact of background traffic on coverage rate and INT header bandwidth occupation.
+Upload rates under different network sizes of FatTree topology.
 
 ## Fig.3
-The impact of data plane label interval on network-wide coverage rate during system cold start.
+The architecture of INT-filter.
 
 ## Fig.4
-How the relation between label interval and telemetry resolution affects the coverage rate.
+The impact of degree of polynomial fitting on the upload decrease.
 
 ## Fig.5
-Network-wide coverage degradation due to loss of packets under Base and Pro strategies.
+The impact of data plane probe frequency on upload rate.
 
 ## Fig.6
-Bandwidth overhead under different label/probe intervals (INT-label vs HULA).
+The impact of prediction window size on the computational complexity and upload rate.
 
 ## Fig.7
-Packet loss rate (due to rate limit) under different label/probe intervals (INT-label vs HULA).
+The impact of threshold on the computational complexity and upload rate.
 
 # INT-filter
-We build an emulation-based network prototype to demonstrate INT-label performance. The hardware configuration is i5-8600k CPU and 32GB memory with Ubuntu 16.04 OS. The prototype is based on Mininet and consists of 1 controller, 4 Spine switches, 4 Leaf switches, 4 ToR switches and 8 servers.
-The INT_label include five modules:topology, flow_table, p4_source_code, packet, controller and TIME_OUT.
+We build an emulation-based network prototype to demonstrate INT-label performance. The hardware configuration is 20*2Ghz CPU and 64GB memory with Ubuntu 16.04 OS. The prototype is based on Mininet and consists of 1 controller, 4 Spine switches, 4 Leaf switches, 4 ToR switches and 8 servers.
+The INT_filter include five modules:topology, flow_table, p4_source_code, packet, controller and args.
 
 ## topology
 Establish a mininet topology and start the packet send&receive process.
@@ -75,8 +78,10 @@ Implement send&receive packet on the server.
 Send packet.
 
 #### send_int_probe.py
-Based on SR, Server1 and Server8 send data packet to other servers.
-Here we can control the traffic rate and forwarding path.
+Based on SR and INT-path, each host send probe packet to a host which is not in the same pod.
+
+### send_data.py
+Based on SR, server1, server3, server6 and server8 send randomly-generated traffic (packet size = 1kB) to the other servers.
 
 ### receive
 Receive packet and parse it.
