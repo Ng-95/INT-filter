@@ -107,7 +107,7 @@ Read experimental results.
 ## args
 Store global variable of the prediction window size.
 
-# How to run INT-label
+# How to run INT-filter
 If you installed the dependencies and configured the database successfully, then you can run the system with commands below:
 
 ## Base
