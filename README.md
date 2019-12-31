@@ -89,54 +89,34 @@ Receive packet and parse it.
 #### parse.py
 Extract the INT information.
 
-#### receive.py
-Receive packets and parse them using parse.py. And write the latest INT information into the INT database and Aging database (for calculating coverage rate).
+#### predict.py
+Predict the state using historical data.
+
+#### receive_basic.py
+Receive packets and parse them using parse.py. And write the latest INT information into the database without filtering.
+
+#### receive_filter.py
+Filter the uploaded data and update the historical state database.
 
 ## controller 
 Implement controller-driven adaptive labelling function and calculate the coverage rate.
 
-### detect1.py
-Implement the function of setting int_sampling_flag to 1 for a while.
-
-### detect2.py
-Restore the int_sampling_flag to 0 when it is necessary.
-
-### coverage.py
-Calculate the coverage rate.
-
 ### read_redis.py
 Read experimental results.
 
-### flow_table_ctrl
-The flow table is used to change the int_sampling_flag, which is modified by the detect1.py and detect2.py.
-
-## TIME_OUT
-Store global variable used to control the telemetry resolution.
+## args
+Store global variable of the prediction window size.
 
 # How to run INT-label
 If you installed the dependencies and configured the database successfully, then you can run the system with commands below:
 
 ## Base
 ```
-redis-cli config set notify-keyspace-events KEA
-cd controller/
-python coverage.py
 cd topology/
 python clos.py
 ```
 
-## Pro
-```
-redis-cli config set notify-keyspace-events KEA
-cd controller/
-python coverage.py
-python detect1.py
-python detect2.py
-cd topology/
-python clos.py
-```
-
-You can change bandwidth, max queue size and background traffic rate in clos.py to test INT-label under different conditions.
+You can change bandwidth, max queue size and background traffic rate in clos.py to test INT-filter under different conditions.
 If you change the topology, you need to modify packet/send/send.py.
 You can view the results of the experiment through controller/read_redis.py.
 
